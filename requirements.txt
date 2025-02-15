@@ -1,0 +1,7 @@
+beautifulsoup4
+selenium
+requests
+google-auth
+gspread
+openai
+json
