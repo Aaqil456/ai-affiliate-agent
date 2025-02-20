@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Affiliate Responses</title>
+    <script>
+        async function loadJSON() {
+            let response = await fetch('data/results.json');
+            let data = await response.json();
+            let output = "<ul>";
+            data.forEach(item => {
+                output += `<li><b>Question:</b> ${item.question}<br><b>Response:</b> ${item.response}<br><b>Timestamp:</b> ${item.timestamp}<br><br></li>`;
+            });
+            output += "</ul>";
+            document.getElementById("content").innerHTML = output;
+        }
+    </script>
+</head>
+<body onload="loadJSON()">
+    <h1>AI Affiliate Responses</h1>
+    <div id="content"></div>
+</body>
+</html>
