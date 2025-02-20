@@ -1,0 +1,26 @@
+name: Run AI Affiliate Agent
+
+on:
+  #schedule:
+    #- cron: '0 * * * *'  # Runs every hour
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run AI Agent
+        run: python src/main.py
+      - name: Commit results
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'actions@github.com'
+          git add data/results.json
+          git commit -m "Update results"
+          git push
