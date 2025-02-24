@@ -4,4 +4,5 @@ requests
 google-auth
 gspread
 google-generativeai
+oauth2client
 
