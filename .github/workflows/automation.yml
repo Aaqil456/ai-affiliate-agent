@@ -1,22 +1,27 @@
 name: Run AI Affiliate Agent
 
 on:
+  workflow_dispatch:  # Allows manual run from GitHub Actions tab
   #schedule:
-    #- cron: '0 * * * *'  # Runs every hour
+    #- cron: '0 * * * *'  # Runs every hour (optional, can be commented if not needed)
 
 jobs:
   run_script:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.8'
+
       - name: Install dependencies
         run: pip install -r requirements.txt
+
       - name: Run AI Agent
         run: python src/main.py
+
       - name: Commit results
         run: |
           git config --global user.name 'github-actions'
