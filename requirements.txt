@@ -3,5 +3,5 @@ selenium
 requests
 google-auth
 gspread
-openai
-json
+google-generativeai
+
