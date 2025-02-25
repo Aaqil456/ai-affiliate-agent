@@ -3,6 +3,8 @@ selenium
 requests
 google-auth
 gspread
+openai
 google-generativeai
 oauth2client
+praw
 
