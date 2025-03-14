@@ -1,9 +1,9 @@
 name: Run AI Affiliate Agent
 
 on:
+  workflow_dispatch:  # Allows manual execution from the Actions tab
   #schedule:
   #  - cron: "0 * * * *"  # Run hourly at the start of every hour
-  workflow_dispatch:  # Allows manual execution from the Actions tab
 
 permissions:
   contents: write  # Grants permission to push changes
@@ -38,6 +38,11 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          REDDIT_USER_AGENT: ${{ secrets.REDDIT_USER_AGENT }}
         run: python src/main.py
 
       - name: Commit and push changes
@@ -49,10 +54,3 @@ jobs:
           git add data/results.json
           git diff --cached --quiet || git commit -m "Update results"
           git push https://x-access-token:${{ secrets.ACTION_PAT }}@github.com/${{ github.repository }}.git main
-
-      - name: Trigger GitHub Pages Rebuild (Optional)
-        env:
-          ACTION_PAT: ${{ secrets.ACTION_PAT }}
-        run: |
-          curl -X POST -H "Authorization: token ${{ secrets.ACTION_PAT }}" \
-          https://api.github.com/repos/${{ github.repository }}/pages/builds
